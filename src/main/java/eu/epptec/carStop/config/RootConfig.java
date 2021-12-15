@@ -21,9 +21,9 @@ public class RootConfig {
     @Bean(initMethod = "migrate")
     protected Flyway flyway(){
         return Flyway.configure()
-                .dataSource("/db/database",
-                        env.getProperty("flyway.username"),
-                        env.getProperty("flyway.password"))
+                .dataSource("jdbc:h2:file:./db/database",
+                        "sa",
+                        "")
                 .baselineOnMigrate(true)
                 .locations("db/migration")
                 .schemas("app-db")

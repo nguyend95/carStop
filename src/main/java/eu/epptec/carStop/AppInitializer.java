@@ -2,10 +2,12 @@ package main.java.eu.epptec.carStop;
 
 import main.java.eu.epptec.carStop.config.MvcConfiguration;
 import main.java.eu.epptec.carStop.config.RootConfig;
+import org.h2.server.web.WebServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 
 /**
@@ -27,7 +29,10 @@ public class AppInitializer
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-
+        ServletRegistration.Dynamic servlet = servletContext
+                .addServlet("h2-console", new WebServlet());
+        servlet.setLoadOnStartup(2);
+        servlet.addMapping("/console/*");
     }
 
 //  default mapping
