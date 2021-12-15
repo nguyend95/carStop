@@ -1,7 +1,7 @@
-package eu.epptec.carStop;
+package main.java.eu.epptec.carStop;
 
-import eu.epptec.carStop.config.MvcConfiguration;
-import eu.epptec.carStop.config.rootConfig;
+import main.java.eu.epptec.carStop.config.MvcConfiguration;
+import main.java.eu.epptec.carStop.config.RootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
@@ -26,8 +26,8 @@ public class AppInitializer
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-
         super.onStartup(servletContext);
+
     }
 
 //  default mapping
@@ -37,7 +37,7 @@ public class AppInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { rootConfig.class };
+        return new Class<?>[] { RootConfig.class};
     }
 
     @Override

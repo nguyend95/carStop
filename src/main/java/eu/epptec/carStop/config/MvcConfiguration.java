@@ -1,4 +1,4 @@
-package eu.epptec.carStop.config;
+package main.java.eu.epptec.carStop.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "eu.epptec.carStop.controller")
+@ComponentScan(basePackages = "main.java.eu.epptec.carStop.controller")
 public class MvcConfiguration implements WebMvcConfigurer {
     /**
      * Configure a handler to delegate unhandled requests by forwarding to the Servlet container's "default" servlet.
