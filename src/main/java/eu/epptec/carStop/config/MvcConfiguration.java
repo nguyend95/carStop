@@ -1,4 +1,4 @@
-package main.java.eu.epptec.carStop.config;
+package eu.epptec.carStop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "main.java.eu.epptec.carStop.controller")
+@ComponentScan(basePackages = "eu.epptec.carStop.controller")
 @ComponentScan(basePackages = "eu.epptec.carStop.service")
 public class MvcConfiguration implements WebMvcConfigurer {
     /**

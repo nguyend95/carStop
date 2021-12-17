@@ -1,4 +1,4 @@
-package main.java.eu.epptec.carStop.entity;
+package eu.epptec.carStop.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

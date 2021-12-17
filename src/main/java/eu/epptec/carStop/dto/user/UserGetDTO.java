@@ -1,4 +1,4 @@
-package main.java.eu.epptec.carStop.dto.user;
+package eu.epptec.carStop.dto.user;
 
 import javax.validation.constraints.NotBlank;
 

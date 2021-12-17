@@ -1,4 +1,4 @@
-package main.java.eu.epptec.carStop.config;
+package eu.epptec.carStop.config;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,9 +22,9 @@ import javax.sql.DataSource;
  */
 @Configuration
 @PropertySource(value = "classpath:config.properties")
-@EnableJpaRepositories(basePackages = "eu.epptec.carStop.repository")
 @EnableTransactionManagement
-@ComponentScan(basePackages = "classpath:eu.epptec.carStop.entity")
+@EnableJpaRepositories("eu.epptec.carStop.repository")
+@ComponentScan(basePackages = "eu.epptec.carStop.entity")
 public class RootConfig {
     @Value("${spring.datasource.username}")
     private String username;

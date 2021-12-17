@@ -1,7 +1,7 @@
-package main.java.eu.epptec.carStop;
+package eu.epptec.carStop;
 
-import main.java.eu.epptec.carStop.config.MvcConfiguration;
-import main.java.eu.epptec.carStop.config.RootConfig;
+import eu.epptec.carStop.config.MvcConfiguration;
+import eu.epptec.carStop.config.RootConfig;
 import org.h2.server.web.WebServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

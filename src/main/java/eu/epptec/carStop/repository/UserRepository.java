@@ -1,6 +1,6 @@
-package main.java.eu.epptec.carStop.repository;
+package eu.epptec.carStop.repository;
 
-import main.java.eu.epptec.carStop.entity.UserEntity;
+import eu.epptec.carStop.entity.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,7 @@
-package main.java.eu.epptec.carStop.controller;
+package eu.epptec.carStop.controller;
 
-import main.java.eu.epptec.carStop.dto.user.UserGetDTO;
-import main.java.eu.epptec.carStop.dto.user.UserPostDTO;
-import main.java.eu.epptec.carStop.service.UserService;
+import eu.epptec.carStop.dto.user.UserPostDTO;
+import eu.epptec.carStop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

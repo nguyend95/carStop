@@ -1,8 +1,8 @@
-package main.java.eu.epptec.carStop.service;
+package eu.epptec.carStop.service;
 
-import main.java.eu.epptec.carStop.dto.user.UserPostDTO;
-import main.java.eu.epptec.carStop.entity.UserEntity;
-import main.java.eu.epptec.carStop.repository.UserRepository;
+import eu.epptec.carStop.dto.user.UserPostDTO;
+import eu.epptec.carStop.entity.UserEntity;
+import eu.epptec.carStop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
