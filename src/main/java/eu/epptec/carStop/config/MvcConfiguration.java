@@ -1,7 +1,11 @@
 package main.java.eu.epptec.carStop.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "main.java.eu.epptec.carStop.controller")
+@ComponentScan(basePackages = "eu.epptec.carStop.service")
 public class MvcConfiguration implements WebMvcConfigurer {
     /**
      * Configure a handler to delegate unhandled requests by forwarding to the Servlet container's "default" servlet.
@@ -25,5 +30,10 @@ public class MvcConfiguration implements WebMvcConfigurer {
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 }

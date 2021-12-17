@@ -17,7 +17,7 @@ import javax.servlet.ServletRegistration;
  * such as datasources, middle-tier services, ... Those beans should go to Root WebApplicationContext
  * Controllers, viewResolver, HandlerMapping should go to Servlet WebApplicationContext
  * In our case, we can put everything to Root WebApplicationContext because we have only one DispatcherServlet
- * If
+ *
  * WebApplicationContext is configured by methods -
  *      getServletMappings, getRootConfig and getServletConfig
  *
