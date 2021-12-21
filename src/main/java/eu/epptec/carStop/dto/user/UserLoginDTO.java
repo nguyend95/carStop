@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class UserGetDTO {
-    private String firstName;
-
-    private String lastName;
+public class UserLoginDTO extends UserBasicDTO{
+    private String password;
 }

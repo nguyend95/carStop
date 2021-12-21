@@ -6,17 +6,17 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * This config will scan for datasource, services,...
@@ -25,7 +25,9 @@ import javax.sql.DataSource;
 @PropertySource(value = "classpath:config.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories("eu.epptec.carStop.repository")
+@ComponentScan("eu.epptec.carStop.dao")
 @EntityScan("eu.epptec.carStop.entity")
+@ActiveProfiles("db")
 public class RootConfig {
     @Value("${spring.datasource.username}")
     private String username;
@@ -48,38 +50,47 @@ public class RootConfig {
                 .load();
     }
 
-//    @Bean
-//    public EntityManagerFactory entityManagerFactory() {
-//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//        vendorAdapter.setGenerateDdl(true);
-//
-//        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-//        factory.setJpaVendorAdapter(vendorAdapter);
-//        factory.setDataSource(dataSource());
-//        factory.afterPropertiesSet();
-//
-//        return factory.getObject();
-//    }
-//
-//    @Bean
-//    public DataSource dataSource() {
-//        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-//        dataSourceBuilder.driverClassName("org.h2.Driver");
-//        dataSourceBuilder.url("jdbc:h2:file:./db/database");
-//        dataSourceBuilder.username("SA");
-//        dataSourceBuilder.password("");
-//        return dataSourceBuilder.build();
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager transactionManager() {
-//        JpaTransactionManager txManager = new JpaTransactionManager();
-//        txManager.setEntityManagerFactory(entityManagerFactory());
-//        return txManager;
-//    }
-//
-//    @Bean
-//    public HibernateExceptionTranslator hibernateExceptionTranslator() {
-//        return new HibernateExceptionTranslator();
-//    }
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em
+                = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(new String[] { "eu.epptec.carStop.entity" });
+
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
+
+        return em;
+    }
+
+    Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+
+        return properties;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("org.h2.Driver");
+        dataSourceBuilder.url("jdbc:h2:file:./db/database");
+        dataSourceBuilder.username("SA");
+        dataSourceBuilder.password("");
+        return dataSourceBuilder.build();
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+
+        return transactionManager;
+    }
+
+    @Bean
+    public HibernateExceptionTranslator hibernateExceptionTranslator() {
+        return new HibernateExceptionTranslator();
+    }
 }

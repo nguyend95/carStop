@@ -1,31 +1,50 @@
 package eu.epptec.carStop.controller;
 
 import eu.epptec.carStop.dto.user.UserPostDTO;
-import eu.epptec.carStop.service.UserService;
+import eu.epptec.carStop.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-    @PostMapping
-    public ResponseEntity<UserPostDTO> createNewUser(@Validated @RequestBody UserPostDTO model){
+    @PostMapping("/user")
+    public String createNewUser(@Validated @RequestBody UserPostDTO model,
+                                BindingResult result){
         if (!this.userService.checkInput(model)){
-            return ResponseEntity.status(400).body(null);
+            result.rejectValue("email", null, "There is already and user registered with that email.");
         }
 
-        return ResponseEntity.ok(this.userService.createUser(model));
+        if (result.hasErrors()){
+            return "registration";
+        }
+
+        this.userService.save(model);
+        return "redirect:/registration?success";
+    }
+
+    @GetMapping("/registration_form")
+    public String showRegistrationForm(Model model){
+        return "registration_form";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "login.html";
+    }
+
+    @RequestMapping("/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login.html";
     }
 }

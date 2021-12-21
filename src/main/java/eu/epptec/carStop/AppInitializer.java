@@ -2,7 +2,13 @@ package eu.epptec.carStop;
 
 import eu.epptec.carStop.config.MvcConfiguration;
 import eu.epptec.carStop.config.RootConfig;
+import eu.epptec.carStop.security.SecurityInitializer;
+import eu.epptec.carStop.security.WebSecurityConfig;
 import org.h2.server.web.WebServlet;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
@@ -42,11 +48,11 @@ public class AppInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { RootConfig.class};
+        return new Class<?>[] { RootConfig.class, WebSecurityConfig.class };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { MvcConfiguration.class };
+        return new Class<?>[] { MvcConfiguration.class};
     }
 }
