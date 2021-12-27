@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Component
-@Profile("!db")
+@Profile("inmemory")
 public class UserInMemoryDaoImpl implements UserDataService {
     private Map<Long, UserEntity> users = new HashMap<>();
     private AtomicLong counter = new AtomicLong(0);
@@ -20,10 +20,10 @@ public class UserInMemoryDaoImpl implements UserDataService {
         return Optional.ofNullable(users.get(id));
     }
 
-//    @Override
-//    public Collection<UserEntity> getAll() {
-//        return users;
-//    }
+    @Override
+    public Collection<UserEntity> getAll() {
+        return null;
+    }
 
     @Override
     public UserEntity save(UserEntity userEntity) {
@@ -39,11 +39,17 @@ public class UserInMemoryDaoImpl implements UserDataService {
     }
 
     @Override
-    public Map.Entry<Long, UserEntity> getByEmail(String email) {
-        return this.users.entrySet().stream()
-                .filter(u -> u.getValue().getEmail().equals(email))
-                .findAny()
-                .orElse(null);
+    public Optional<UserEntity> getByEmail(String email) {
+        UserEntity copy = new UserEntity();
+
+        for (Map.Entry<Long, UserEntity> user : users.entrySet()){
+            if (email.equals(user.getValue().getEmail())){
+                BeanUtils.copyProperties(user, copy);
+                return Optional.of(copy);
+            }
+        }
+
+        return Optional.empty();
     }
 
 //    @Override

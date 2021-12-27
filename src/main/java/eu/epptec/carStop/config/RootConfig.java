@@ -27,7 +27,7 @@ import java.util.Properties;
 @EnableJpaRepositories("eu.epptec.carStop.repository")
 @ComponentScan("eu.epptec.carStop.dao")
 @EntityScan("eu.epptec.carStop.entity")
-@ActiveProfiles("db")
+@ActiveProfiles("!inmemory")
 public class RootConfig {
     @Value("${spring.datasource.username}")
     private String username;
@@ -46,7 +46,7 @@ public class RootConfig {
                         password)
                 .baselineOnMigrate(true)
                 .locations("db/migration")
-                .schemas("app-db")
+                .schemas("app_db")
                 .load();
     }
 
@@ -73,7 +73,7 @@ public class RootConfig {
 
     @Bean
     public DataSource dataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.h2.Driver");
         dataSourceBuilder.url("jdbc:h2:file:./db/database");
         dataSourceBuilder.username("SA");

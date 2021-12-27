@@ -4,11 +4,12 @@ import eu.epptec.carStop.dao.UserDataService;
 import eu.epptec.carStop.dto.user.UserGetDTO;
 import eu.epptec.carStop.dto.user.UserPostDTO;
 import eu.epptec.carStop.entity.UserEntity;
+import eu.epptec.carStop.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -44,18 +45,21 @@ public class UserServiceImpl implements UserService {
         return this.userDao.get(id);
     }
 
+    @Override
+    public Collection<UserEntity> getAll() {
+        return this.userDao.getAll();
+    }
+
     public boolean checkInput(UserPostDTO model) {
-        return !emailExist(model.getEmail())
-                && model.getPassword().equals(model.getMatchingPassword());
+        return emailExist(model.getEmail())
+                || model.getPassword().equals(model.getMatchingPassword());
     }
 
     private boolean emailExist(String email) {
-//        return UserRepository.findByEmail(email) != null;
-        return true;
+        return userDao.getByEmail(email).isPresent();
     }
 
-    public Map.Entry<Long, UserEntity> loadUserByEmail(String email) {
-//        return this.userRepository.findByEmail(email);
+    public Optional<UserEntity> loadUserByEmail(String email) {
         return this.userDao.getByEmail(email);
     }
 }

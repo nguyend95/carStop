@@ -4,9 +4,11 @@ import eu.epptec.carStop.dto.user.UserGetDTO;
 import eu.epptec.carStop.dto.user.UserPostDTO;
 import eu.epptec.carStop.entity.UserEntity;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface UserService {
-    public UserGetDTO save(UserPostDTO model);
-    public Optional<UserEntity> get(long id);
+    UserGetDTO save(UserPostDTO model);
+    Optional<UserEntity> get(long id);
+    Collection<UserEntity> getAll();
 }

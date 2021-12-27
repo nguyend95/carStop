@@ -21,17 +21,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/test/**").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login*", "/user/**", "/", "/console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login.html")
-                .defaultSuccessUrl("/index")
-                .failureUrl("/login-error.html")
+                .loginPage("/login")
+                .defaultSuccessUrl("/homepage",true)
+                .failureUrl("/error")
                 .and()
             .logout()
                 .permitAll()
         ;
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean

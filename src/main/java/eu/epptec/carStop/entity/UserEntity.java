@@ -5,26 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 import org.h2.engine.User;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema = "app-data")
+@Table(schema = "app_db", name = "user")
 @Getter @Setter
 public class UserEntity {
     @Id
-    @GeneratedValue(generator = "user-sequence-generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+    @SequenceGenerator(name = "user_generator", sequenceName = "user_sequence", schema = "app_db")
     private long id;
 
+    @Column(name = "forename")
     private String forename;
 
+    @Column(name = "surname")
     private String surname;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
     private String email;
 
     @Override

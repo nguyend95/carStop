@@ -6,12 +6,13 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
 @Component
-@Profile("db")
+@Profile("!inmemory")
 public class UserDBService implements UserDataService {
 //    private final EntityManager em;
     private final UserRepository userRepository;
@@ -28,11 +29,10 @@ public class UserDBService implements UserDataService {
         return userRepository.findById(id);
     }
 
-//    @Override
-//    public List<UserEntity> getAll() {
-//        return em.createQuery("select e from UserEntity e")
-//                .getResultList();
-//    }
+    @Override
+    public List<UserEntity> getAll() {
+        return (List<UserEntity>) userRepository.findAll();
+    }
 
     @Override
     public UserEntity save(UserEntity userEntity) {
@@ -41,8 +41,8 @@ public class UserDBService implements UserDataService {
     }
 
     @Override
-    public Map.Entry<Long, UserEntity> getByEmail(String email) {
-        return null;
+    public Optional<UserEntity> getByEmail(String email) {
+        return this.userRepository.findByEmail(email);
     }
 
 //    @Override

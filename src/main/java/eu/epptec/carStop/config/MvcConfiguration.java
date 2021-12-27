@@ -77,7 +77,6 @@ public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setOrder(1);
-        viewResolver.setViewNames(new String[] {".html", ".xhtml"});
         return viewResolver;
     }
 
