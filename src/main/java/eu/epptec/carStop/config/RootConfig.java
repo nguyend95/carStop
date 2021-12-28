@@ -67,6 +67,11 @@ public class RootConfig {
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.show_sql","true");
+        properties.put("hibernate.format_sql","true");
+        properties.put("hibernatae.order_inserts","true");
+        properties.put("hibernatae.order_updates","true");
+        properties.put("hibernate.id.new_generator_mappings","true");
 
         return properties;
     }
