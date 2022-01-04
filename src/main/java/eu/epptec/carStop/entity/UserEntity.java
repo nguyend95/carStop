@@ -1,9 +1,7 @@
 package eu.epptec.carStop.entity;
 
-import javassist.expr.Instanceof;
 import lombok.Getter;
 import lombok.Setter;
-import org.h2.engine.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -41,6 +39,17 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "passenger")
     private List<ReservationEntity> reservations;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserRoleEntity> roles;
+
+    @OneToOne(mappedBy = "user")
+    private RefreshTokenEntity refreshToken;
+
+    public void addRole(UserRoleEntity role){
+        this.roles.add(role);
+        role.setUser(this);
+    }
 
     public void addReservation(ReservationEntity reservation){
         this.reservations.add(reservation);

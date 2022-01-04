@@ -27,7 +27,7 @@ import java.util.Properties;
 @EnableJpaRepositories("eu.epptec.carStop.repository")
 @ComponentScan("eu.epptec.carStop.dao")
 @EntityScan("eu.epptec.carStop.entity")
-@ActiveProfiles("!inmemory")
+@ActiveProfiles({"inmemory"})
 public class RootConfig {
     @Value("${spring.datasource.username}")
     private String username;

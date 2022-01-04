@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(schema = "app_db", name = "messages")
@@ -24,7 +25,8 @@ public class MessagesEntity {
     private boolean received;
 
     @Column(name = "c_time")
-    private Timestamp createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")

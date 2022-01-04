@@ -2,7 +2,7 @@ package eu.epptec.carStop;
 
 import eu.epptec.carStop.config.MvcConfiguration;
 import eu.epptec.carStop.config.RootConfig;
-import eu.epptec.carStop.security.SecurityInitializer;
+//import eu.epptec.carStop.security.SecurityInitializer;
 import eu.epptec.carStop.security.WebSecurityConfig;
 import org.h2.server.web.WebServlet;
 import org.springframework.context.annotation.ImportResource;

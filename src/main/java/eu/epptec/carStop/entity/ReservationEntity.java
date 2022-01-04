@@ -20,7 +20,7 @@ public class ReservationEntity {
     private String id;
 
     @Column(name = "status")
-    @Convert(converter = ReservationStateConverter.class)
+    @Enumerated(EnumType.STRING)
     private ReservationStates states;
 
     @Column(name = "seats")

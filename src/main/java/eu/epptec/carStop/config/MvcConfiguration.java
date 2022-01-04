@@ -27,7 +27,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @ComponentScan(basePackages = "eu.epptec.carStop.controller")
 @ComponentScan(basePackages = "eu.epptec.carStop.service")
-@ComponentScan(basePackages = "eu.epptec.carStop.dao.inmemory")
+@ComponentScan(basePackages = "eu.epptec.carStop.security.service")
+@ComponentScan(basePackages = "eu.epptec.carStop.security")
+@ComponentScan(basePackages = "eu.epptec.carStop.error")
 public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAware{
     private ApplicationContext applicationContext;
 

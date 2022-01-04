@@ -38,6 +38,10 @@ public class PartRideEntity {
     @OneToMany(mappedBy = "ride")
     private List<PartRideReservationEntity> reservations;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ride_id", referencedColumnName = "id")
+    private RideEntity ride;
+
     public void addReservations(PartRideReservationEntity reservation){
         this.reservations.add(reservation);
         reservation.setRide(this);

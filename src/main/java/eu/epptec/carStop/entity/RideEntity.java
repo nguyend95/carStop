@@ -37,10 +37,18 @@ public class RideEntity {
     private UserEntity driverId;
 
     @OneToMany(mappedBy = "ride")
+    private List<PartRideEntity> partRides;
+
+    @OneToMany(mappedBy = "ride")
     private List<MessagesEntity> messages;
 
     public void addMessage(MessagesEntity message){
         this.messages.add(message);
         message.setRide(this);
+    }
+
+    public void addPartRide(PartRideEntity partRide){
+        this.partRides.add(partRide);
+        partRide.setRide(this);
     }
 }
