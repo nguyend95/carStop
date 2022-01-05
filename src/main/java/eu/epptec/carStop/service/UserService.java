@@ -1,4 +1,4 @@
-package eu.epptec.carStop.service.interfaces;
+package eu.epptec.carStop.service;
 
 import eu.epptec.carStop.dto.user.UserGetDTO;
 import eu.epptec.carStop.dto.user.UserLoginDTO;
@@ -13,6 +13,5 @@ public interface UserService {
     Optional<UserEntity> get(long id);
     Optional<UserEntity> get(String email);
     Collection<UserEntity> getAll();
-    String login(UserLoginDTO user);
     boolean checkInput(UserPostDTO model);
 }

@@ -1,7 +1,7 @@
 package eu.epptec.carStop.security;
 
 import eu.epptec.carStop.entity.UserEntity;
-import eu.epptec.carStop.service.interfaces.UserService;
+import eu.epptec.carStop.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

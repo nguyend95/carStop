@@ -77,30 +77,6 @@ create table if not exists app_db.part_ride_reservation(
     primary key(part_ride_id, reservation_id)
 );
 
-create table if not exists app_db.roles(
-    id int,
-    name varchar(50)
-);
-
-create table if not exists app_db.user_role(
-    role_id int,
-    user_id int,
-    foreign key(role_id)
-        references app_db.part_ride(id),
-    foreign key(user_id)
-        references app_db.reservation(id),
-    primary key(role_id, user_id)
-);
-
-create table if not exists app_db.refresh_token(
-    id int primary key,
-    token varchar(50),
-    expiry_date Timestamp,
-    user_id int,
-    foreign key(user_id)
-       references app_db.reservation(id)
-);
-
 CREATE SEQUENCE if not exists app_db.map_spot_sequence
     start with 1
     increment by 1;
@@ -118,9 +94,5 @@ CREATE SEQUENCE if not exists app_db.message_sequence
     increment by 1;
 
 CREATE SEQUENCE if not exists app_db.reservation_sequence
-    start with 1
-    increment by 1;
-
-CREATE SEQUENCE if not exists app_db.refresh_token_sequence
     start with 1
     increment by 1;

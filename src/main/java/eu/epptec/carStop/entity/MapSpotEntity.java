@@ -1,6 +1,5 @@
 package eu.epptec.carStop.entity;
 
-import eu.epptec.carStop.converter.StringToLongConverter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,18 +12,17 @@ import java.util.List;
 @Getter @Setter
 public class MapSpotEntity {
     @Id
-    @Convert(converter = StringToLongConverter.class)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "map_spot_generator")
     @SequenceGenerator(name = "map_spot_generator", sequenceName = "map_spot_sequence", schema = "app_db")
-    private String id;
+    private long id;
 
     @Column(name = "city_name")
     private String cityName;
 
-    @OneToMany(mappedBy = "startSpot")
+    @OneToMany(mappedBy = "startSpot", fetch = FetchType.EAGER)
     private List<PartRideEntity> startRides = new ArrayList<>();
 
-    @OneToMany(mappedBy = "destinationSpot")
+    @OneToMany(mappedBy = "destinationSpot", fetch = FetchType.EAGER)
     private List<PartRideEntity> destinationRides = new ArrayList<>();
 
     public void addStartRide(PartRideEntity partRide){

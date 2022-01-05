@@ -26,6 +26,4 @@ public class UserPostDTO extends UserBasicDTO{
     @NotBlank
     @Size(max = 100)
     private String matchingPassword;
-
-    private List<String> roles;
 }

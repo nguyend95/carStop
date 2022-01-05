@@ -12,12 +12,11 @@ import java.util.List;
 @Getter @Setter
 public class RideEntity {
     @Id
-    @Convert(converter = StringToLongConverter.class)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ride_generator")
     @SequenceGenerator(name = "ride_generator", sequenceName = "ride_sequence", schema = "app_db")
-    private String id;
+    private long id;
 
-    @Column(name = "message")
+    @Column(name = "driver_message")
     private String message;
 
     @Column(name = "total_seats")

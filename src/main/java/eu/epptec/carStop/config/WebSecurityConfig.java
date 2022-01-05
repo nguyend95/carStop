@@ -1,17 +1,20 @@
-package eu.epptec.carStop.security;
+package eu.epptec.carStop.config;
 
+import eu.epptec.carStop.security.CustomAuthenticationProvider;
 import eu.epptec.carStop.security.jwt.AuthEntryPointJwt;
 import eu.epptec.carStop.security.jwt.AuthTokenFilter;
-import eu.epptec.carStop.security.jwt.JwtUtils;
+import eu.epptec.carStop.utils.JwtUtils;
 import eu.epptec.carStop.security.service.UserDetailsServiceImpl;
-import eu.epptec.carStop.service.interfaces.UserService;
+import eu.epptec.carStop.service.UserService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,17 +27,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@ComponentScan("eu.epptec.carStop.security.service")
+@ComponentScan(basePackages = "eu.epptec.carStop.utils")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     final private UserDetailsServiceImpl userDetailsService;
     final private JwtUtils jwtUtils;
-    final private AuthEntryPointJwt unauthorizedHandler;
-    final private UserService userService;
+//    final private AuthEntryPointJwt unauthorizedHandler;
+//    final private UserService userService;
 
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, JwtUtils jwtUtils, AuthEntryPointJwt unauthorizedHandler, UserService userService) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, JwtUtils jwtUtils
+//            , AuthEntryPointJwt unauthorizedHandler,
+//                             UserService userService
+    ){
         this.userDetailsService = userDetailsService;
         this.jwtUtils = jwtUtils;
-        this.unauthorizedHandler = unauthorizedHandler;
-        this.userService = userService;
+//        this.unauthorizedHandler = unauthorizedHandler;
+//        this.userService = userService;
     }
 
     @Override
@@ -43,12 +51,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
+//                .authenticationEntryPoint(unauthorizedHandler)
             .and()
                 .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/test/**").permitAll()
-                .antMatchers("/api/login*", "/api/user", "/console/**").permitAll()
+//                .antMatchers("/test/**").permitAll()
+                .antMatchers("/auth/login", "/api/signup", "/console/**").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
@@ -58,6 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .httpBasic().disable()
                 .logout().disable()
+                .headers().frameOptions().disable()
         ;
     }
 
@@ -72,15 +81,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public CustomAuthenticationProvider authProvider() {
-        return new CustomAuthenticationProvider(userService, encoder());
-    }
+//    @Bean
+//    public CustomAuthenticationProvider authProvider() {
+//        return new CustomAuthenticationProvider(userService, encoder());
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(this.encoder());
-        auth.authenticationProvider(authProvider());
+        auth.userDetailsService(userDetailsService).passwordEncoder(this.encoder());
+//        auth.authenticationProvider(authProvider());
     }
 
     @Bean

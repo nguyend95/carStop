@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter @Setter
@@ -13,7 +14,7 @@ public class StopDto {
     private String city;
 
     @NotNull
-    private Timestamp departureTime;
+    private Date departureTime;
 
     private int price;
 }

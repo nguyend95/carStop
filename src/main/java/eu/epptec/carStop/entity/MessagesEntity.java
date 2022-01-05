@@ -13,10 +13,9 @@ import java.util.Date;
 @Getter @Setter
 public class MessagesEntity {
     @Id
-    @Convert(converter = StringToLongConverter.class)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_generator")
     @SequenceGenerator(name = "message_generator", sequenceName = "message_sequence", schema = "app_db")
-    private String id;
+    private long id;
 
     @Column(name = "content")
     private String content;

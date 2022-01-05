@@ -14,10 +14,9 @@ import java.util.List;
 @Getter @Setter
 public class ReservationEntity {
     @Id
-    @Convert(converter = StringToLongConverter.class)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservation_generator")
     @SequenceGenerator(name = "reservation_generator", sequenceName = "reservation_sequence", schema = "app_db")
-    private String id;
+    private long id;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

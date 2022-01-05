@@ -40,17 +40,6 @@ public class UserEntity {
     @OneToMany(mappedBy = "passenger")
     private List<ReservationEntity> reservations;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserRoleEntity> roles;
-
-    @OneToOne(mappedBy = "user")
-    private RefreshTokenEntity refreshToken;
-
-    public void addRole(UserRoleEntity role){
-        this.roles.add(role);
-        role.setUser(this);
-    }
-
     public void addReservation(ReservationEntity reservation){
         this.reservations.add(reservation);
         reservation.setPassenger(this);

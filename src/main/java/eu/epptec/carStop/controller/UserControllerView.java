@@ -2,9 +2,8 @@ package eu.epptec.carStop.controller;
 
 import eu.epptec.carStop.dto.user.UserPostDTO;
 import eu.epptec.carStop.entity.UserEntity;
-import eu.epptec.carStop.service.UserServiceImpl;
+import eu.epptec.carStop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +14,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("")
-public class UserControllerImpl{
+public class UserControllerView {
     private final UserServiceImpl userService;
 
     @Autowired
-    public UserControllerImpl(UserServiceImpl userService) {
+    public UserControllerView(UserServiceImpl userService) {
         this.userService = userService;
     }
 

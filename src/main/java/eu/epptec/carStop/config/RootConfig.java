@@ -28,6 +28,7 @@ import java.util.Properties;
 @ComponentScan("eu.epptec.carStop.dao")
 @EntityScan("eu.epptec.carStop.entity")
 @ActiveProfiles({"inmemory"})
+@Import(WebSecurityConfig.class)
 public class RootConfig {
     @Value("${spring.datasource.username}")
     private String username;
@@ -83,6 +84,7 @@ public class RootConfig {
         dataSourceBuilder.url("jdbc:h2:file:./db/database");
         dataSourceBuilder.username("SA");
         dataSourceBuilder.password("");
+
         return dataSourceBuilder.build();
     }
 

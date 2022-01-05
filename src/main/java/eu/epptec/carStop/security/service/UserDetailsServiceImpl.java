@@ -1,7 +1,7 @@
 package eu.epptec.carStop.security.service;
 
 import eu.epptec.carStop.entity.UserEntity;
-import eu.epptec.carStop.service.interfaces.UserService;
+import eu.epptec.carStop.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserService userService) {
-        this.userService = userService;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userService.get(username)
+        UserEntity user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         return UserDetailsImpl.build(user);

@@ -5,12 +5,10 @@ import eu.epptec.carStop.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Getter @Setter
 public class UserDetailsImpl implements UserDetails {
@@ -34,16 +32,16 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(UserEntity user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole().getName().name()))
-                .collect(Collectors.toList());
+//        List<GrantedAuthority> authorities = user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getRole().getName().name()))
+//                .collect(Collectors.toList());
 
         return new UserDetailsImpl(
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
                 user.getEmail(),
-                authorities);
+                null);
     }
 
     @Override
@@ -53,31 +51,44 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDetailsImpl that = (UserDetailsImpl) o;
+        return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(username, that.username) && Objects.equals(authorities, that.authorities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password, username, authorities);
     }
 }

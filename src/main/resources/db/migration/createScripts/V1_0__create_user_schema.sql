@@ -17,4 +17,4 @@ insert into app_db.user (id, email, password, forename, surname) values (6, 'gha
 insert into app_db.user (id, email, password, forename, surname) values (7, 'amiall6@earthlink.net', 'pQFYcgAi5lj', 'Aliza', 'Miall');
 insert into app_db.user (id, email, password, forename, surname) values (8, 'dtate7@nationalgeographic.com', 'g1W4zUNcho', 'Delmore', 'Tate');
 insert into app_db.user (id, email, password, forename, surname) values (9, 'sblacklock8@rakuten.co.jp', 'zTwvl8OJr', 'Sile', 'Blacklock');
-insert into app_db.user (id, email, password, forename, surname) values (10, 'kalyoshin9@purevolume.com', 'MhAlHFGmhXNA', 'Katherine', 'Alyoshin');
+insert into app_db.user (id, email, password, forename, surname) values (10, 'n@gmail.com', '$2a$10$yjzT9w0QI/kZS8f8e7wUf.zycotAnrlv370oQ8tFBbKMc3N6IgHiq', 'Katherine', 'Alyoshin');
